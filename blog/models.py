@@ -5,7 +5,7 @@ from django.utils import timezone
 
 
 
-class NewsManager(models.Manager):
+class BlogManager(models.Manager):
     def published(self):
         return self.filter(status='p')
 
@@ -29,19 +29,19 @@ class Tags(models.Model):
         return self.title
 
 
-class News(models.Model):
+class Blog(models.Model):
     STATUS_CHOICES = (
         ('d', 'Draft'),
         ('p', 'Publish')
     )
-    # author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='news')
+    # author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='blog')
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=200, unique=True)
-    category = models.ManyToManyField(Category, related_name='news')
-    tags = models.ManyToManyField(Tags, related_name='news', blank=True)
+    category = models.ManyToManyField(Category, related_name='blog')
+    tags = models.ManyToManyField(Tags, related_name='blog', blank=True)
     description = models.TextField(null=True)
-    image = models.ImageField(upload_to='news')
-    thumbnail = models.ImageField(upload_to='news/thumb', null=True)
+    image = models.ImageField(upload_to='blog')
+    thumbnail = models.ImageField(upload_to='blog/thumb', null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -53,4 +53,4 @@ class News(models.Model):
     def __str__(self):
         return self.title
 
-    objects = NewsManager()
+    objects = BlogManager()

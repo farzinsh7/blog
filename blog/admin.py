@@ -2,8 +2,8 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.News)
-class NewsAdmin(admin.ModelAdmin):
+@admin.register(models.Blog)
+class BlogAdmin(admin.ModelAdmin):
     autocomplete_fields = ["author"]
     prepopulated_fields = {"slug": ["title"]}
     list_display = ('title', 'status')

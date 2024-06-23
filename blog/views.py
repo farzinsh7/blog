@@ -3,23 +3,23 @@ from django.views.generic import ListView, DetailView
 from . import models
 
 # Create your views here.
-class NewsListView(ListView):
-    queryset = models.News.objects.published()
-    model = models.News
-    template_name = 'news_list.html'
-    context_object_name = 'news'
+class BlogListView(ListView):
+    queryset = models.Blog.objects.published()
+    model = models.Blog
+    template_name = 'blog_list.html'
+    context_object_name = 'blog'
     paginate_by = 9
 
 
-class NewsDetailView(DetailView):
-    model = models.News
-    context_object_name = 'news'
-    queryset = models.News.objects.published()
-    template_name = 'news_detail.html'
+class BlogDetailView(DetailView):
+    model = models.Blog
+    context_object_name = 'blog'
+    queryset = models.Blog.objects.published()
+    template_name = 'blog_detail.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest'] = models.News.objects.published()[:3]
+        context['latest'] = models.Blog.objects.published()[:3]
         context['category'] = models.Category.objects.filter(status=True)
         context['tags'] = models.Tags.objects.filter(status=True)
         return context
